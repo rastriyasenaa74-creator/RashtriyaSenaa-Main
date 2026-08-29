@@ -1,0 +1,1 @@
+NO LOGO VERSION. Upload root files to GitHub Pages. Deploy Code.gs as Apps Script Web App. Keep Sheet private. Replace API_URL in site.js if you create a new deployment URL. Admin credentials are at top of Code.gs.
