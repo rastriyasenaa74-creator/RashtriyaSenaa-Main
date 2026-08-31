@@ -1,4 +1,4 @@
-const API_URL="https://script.google.com/macros/s/AKfycbzz4mI4hYFRzBN7R6p95GQVwzeX_qhWwhByIhOsT_n9ZiG5m4rGqQvDHs8fhgKeEcuI2g/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbw2OTyx412C8_czpqRJ-0-GbOTZcSzSJvENMiXoLZ0cfS1-mw_qiTKzLgLluy2_nrvV1w/exec";
 const items=[["index.html","HOME"],["about.html","ABOUT US"],["mission.html","MISSION & VISION"],["membership.html","MEMBERSHIP"],["how-to-join.html","HOW TO JOIN"],["contact.html","CONTACT US"]];
 const cur=(location.pathname.split("/").pop()||"index.html").toLowerCase();
 const h=document.querySelector("header");
