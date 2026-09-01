@@ -1,35 +1,595 @@
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f7f7f5;color:#151515}a{text-decoration:none;color:inherit}.container{width:min(1180px,92%);margin:auto}.top{background:#151515;color:#fff;font-size:13px}.top .container{display:flex;justify-content:space-between;padding:8px 0}.navbar{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:50}.nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:900;font-size:22px}.brand span{display:block;font-size:11px;color:#777;font-weight:500}.navlinks{display:flex;gap:4px;align-items:center;flex-wrap:wrap}.navlinks a{padding:10px 12px;border-radius:7px;font-size:13px;font-weight:700}.navlinks a:hover,.navlinks .active{background:#e31b23;color:#fff}.navlinks .join{background:#151515;color:#fff}.menu{display:none;background:#151515;color:#fff;border:0;padding:10px;border-radius:7px;font-size:20px}.hero{background:linear-gradient(135deg,#151515,#333);color:#fff;padding:90px 0}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:center}.eyebrow{border:1px solid #555;border-radius:30px;padding:8px 14px;font-size:12px;font-weight:800}.hero h1{font-size:clamp(42px,6vw,74px);line-height:.98;margin:22px 0}.hero h1 em{font-style:normal;color:#e31b23}.hero p{font-size:18px;line-height:1.7;color:#ddd}.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{display:inline-block;padding:13px 20px;border-radius:8px;font-weight:800;border:0;cursor:pointer}.red{background:#e31b23;color:#fff}.white{background:#fff;color:#151515}.outline{background:transparent;color:#fff;border:1px solid #666}.hero-panel{border:1px solid #555;border-radius:16px;padding:26px}.mini{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini div{border:1px solid #555;padding:18px;border-radius:10px}.mini strong{display:block;font-size:25px}.stats{background:#e31b23;color:#fff}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr)}.stat{text-align:center;padding:24px;border-right:1px solid #ffffff44}.stat strong{display:block;font-size:28px}.section{padding:70px 0}.head{max-width:700px;margin-bottom:30px}.head h2{font-size:38px;margin:0 0 12px}.head p,.card p{color:#666;line-height:1.7}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:#fff;border:1px solid #ddd;border-radius:14px;padding:24px;box-shadow:0 5px 18px #0000000a;transition:.2s}.card:hover{transform:translateY(-4px)}.icon{width:42px;height:42px;background:#151515;color:#fff;border-radius:9px;display:grid;place-items:center;font-weight:900;margin-bottom:16px}.two{display:grid;grid-template-columns:1fr 1fr;gap:25px}.dark{background:#151515;color:#fff}.dark p{color:#ccc}.form{max-width:850px;margin:auto;background:#fff;border:1px solid #ddd;border-radius:15px;padding:30px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:17px}.field label{display:block;font-weight:800;font-size:13px;margin-bottom:7px}.field input,.field textarea{width:100%;padding:13px;border:1px solid #ccc;border-radius:8px;font:inherit}.field textarea{min-height:110px}.full{grid-column:1/-1}.msg{display:none;margin-top:15px;padding:12px;border-radius:8px}.success{display:block;background:#dcfce7;color:#166534}.error{display:block;background:#fee2e2;color:#991b1b}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;background:#fff}.table th,.table td{padding:12px;border-bottom:1px solid #eee;text-align:left;white-space:nowrap}.table th{background:#151515;color:#fff}.footer{background:#111;color:#bbb;padding:45px 0}.footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}.footer h3{color:#fff;font-size:14px}.footer a{display:block;margin:8px 0;font-size:14px}.copy{border-top:1px solid #333;margin-top:30px;padding-top:20px;text-align:center;font-size:12px}@media(max-width:900px){.navlinks{display:none;position:absolute;left:0;right:0;top:76px;background:#fff;padding:15px;flex-direction:column;align-items:stretch}.navlinks.open{display:flex}.menu{display:block}.hero-grid,.two{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.formgrid{grid-template-columns:1fr}.footgrid{grid-template-columns:1fr}}@media(max-width:520px){.cards,.stats-grid{grid-template-columns:1fr}.hero{padding:60px 0}.hero h1{font-size:45px}.stat{border-right:0;border-bottom:1px solid #ffffff44}}
-/* ===== BABASAHEB THOUGHT ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7f5;
+  color: #151515;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  width: min(1180px, 92%);
+  margin: auto;
+}
+
+
+/* =========================
+   TOP BAR
+========================= */
+
+.top {
+  background: #151515;
+  color: #fff;
+  font-size: 13px;
+}
+
+.top .container {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  font-weight: 900;
+  font-size: 22px;
+}
+
+.brand span {
+  display: block;
+  font-size: 11px;
+  color: #777;
+  font-weight: 500;
+}
+
+.navlinks {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.navlinks a {
+  padding: 10px 12px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.navlinks a:hover,
+.navlinks .active {
+  background: #e31b23;
+  color: #fff;
+}
+
+.navlinks .join {
+  background: #151515;
+  color: #fff;
+}
+
+.menu {
+  display: none;
+  background: #151515;
+  color: #fff;
+  border: 0;
+  padding: 10px;
+  border-radius: 7px;
+  font-size: 20px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  background: linear-gradient(135deg, #151515, #333);
+  color: #fff;
+  padding: 90px 0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.eyebrow {
+  border: 1px solid #555;
+  border-radius: 30px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 6vw, 74px);
+  line-height: 0.98;
+  margin: 22px 0;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: #e31b23;
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 13px 20px;
+  border-radius: 8px;
+  font-weight: 800;
+  border: 0;
+  cursor: pointer;
+}
+
+.red {
+  background: #e31b23;
+  color: #fff;
+}
+
+.white {
+  background: #fff;
+  color: #151515;
+}
+
+.outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+
+/* =========================
+   HERO PANEL
+========================= */
+
+.hero-panel {
+  border: 1px solid #555;
+  border-radius: 16px;
+  padding: 26px;
+}
+
+.mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mini div {
+  border: 1px solid #555;
+  padding: 18px;
+  border-radius: 10px;
+}
+
+.mini strong {
+  display: block;
+  font-size: 25px;
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats {
+  background: #e31b23;
+  color: #fff;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.stat {
+  text-align: center;
+  padding: 24px;
+  border-right: 1px solid #ffffff44;
+}
+
+.stat strong {
+  display: block;
+  font-size: 28px;
+}
+
+
+/* =========================
+   BABASAHEB THOUGHT
+========================= */
+
+.ambedkar-section {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
 
 .ambedkar-thought {
   text-align: center;
-  padding: 28px 20px;
+  padding: 35px 20px;
 }
 
 .thought-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  color: #e31b23;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .thought-text {
-  font-size: 22px;
+  font-size: 23px;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: #151515;
 }
 
-@media (max-width: 600px) {
-  .ambedkar-thought {
-    padding: 22px 12px;
+.thought-name {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+
+/* =========================
+   GENERAL SECTION
+========================= */
+
+.section {
+  padding: 70px 0;
+}
+
+.head {
+  max-width: 700px;
+  margin-bottom: 30px;
+}
+
+.head h2 {
+  font-size: 38px;
+  margin: 0 0 12px;
+}
+
+.head p,
+.card p {
+  color: #666;
+  line-height: 1.7;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 5px 18px #0000000a;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+  background: #151515;
+  color: #fff;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+
+
+/* =========================
+   TWO COLUMN
+========================= */
+
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+
+/* =========================
+   DARK SECTION
+========================= */
+
+.dark {
+  background: #151515;
+  color: #fff;
+}
+
+.dark p {
+  color: #ccc;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form {
+  max-width: 850px;
+  margin: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.formgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+}
+
+.field label {
+  display: block;
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.field textarea {
+  min-height: 110px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+.msg {
+  display: none;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.success {
+  display: block;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.error {
+  display: block;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.tablewrap {
+  overflow: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table th {
+  background: #151515;
+  color: #fff;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  background: #111;
+  color: #bbb;
+  padding: 45px 0;
+}
+
+.footgrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 30px;
+}
+
+.footer h3 {
+  color: #fff;
+  font-size: 14px;
+}
+
+.footer a {
+  display: block;
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.copy {
+  border-top: 1px solid #333;
+  margin-top: 30px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 12px;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+  .navlinks {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 76px;
+    background: #fff;
+    padding: 15px;
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .thought-text {
-    font-size: 17px;
+  .navlinks.open {
+    display: flex;
+  }
+
+  .menu {
+    display: block;
+  }
+
+  .hero-grid,
+  .two {
+    grid-template-columns: 1fr;
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .formgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .footgrid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+  .cards,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 60px 0;
+  }
+
+  .hero h1 {
+    font-size: 45px;
+  }
+
+  .stat {
+    border-right: 0;
+    border-bottom: 1px solid #ffffff44;
+  }
+
+}
+
+
+/* =========================
+   BABASAHEB THOUGHT - MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .ambedkar-thought {
+    padding: 26px 12px;
   }
 
   .thought-title {
     font-size: 12px;
+    letter-spacing: 0.5px;
   }
+
+  .thought-text {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .thought-name {
+    font-size: 13px;
+  }
+
 }
