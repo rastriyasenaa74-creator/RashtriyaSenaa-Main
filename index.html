@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,18 +13,15 @@
 
 <main>
 
-<!-- =========================
-     HERO SECTION
-========================= -->
+<!-- ================= HERO ================= -->
 
 <section class="hero">
-
   <div class="container hero-grid">
 
-    <div>
+    <div class="hero-content">
 
       <span class="eyebrow">
-        RASHTRIYASENAA • HUMAN WELFARE
+        ★ RASHTRIYASENAA • HUMAN WELFARE ★
       </span>
 
       <h1>
@@ -33,9 +30,9 @@
         CONSTITUTION.
       </h1>
 
-      <p>
-        A simple, organized platform for responsible citizens to join,
-        participate and contribute to society and the nation.
+      <p class="hero-text">
+        A simple, organized platform for responsible citizens
+        to join, participate and contribute to society and the nation.
       </p>
 
       <div class="buttons">
@@ -50,14 +47,27 @@
 
       </div>
 
+      <div class="hero-line">
+        <span></span>
+        <small>न्याय • समानता • संविधान</small>
+        <span></span>
+      </div>
+
     </div>
 
 
-    <!-- HERO COUNTERS -->
+    <!-- HERO STAT PANEL -->
 
     <div class="hero-panel">
 
-      <h2>Simple & Transparent</h2>
+      <div class="panel-top">
+        <div>
+          <span class="panel-label">RASHTRIYASENAA</span>
+          <h2>Simple & Transparent</h2>
+        </div>
+
+        <div class="panel-icon">★</div>
+      </div>
 
       <p>
         Register your application, wait for administrative review
@@ -66,22 +76,22 @@
 
       <div class="mini">
 
-        <div>
+        <div class="mini-card">
           <strong id="registerCount">0</strong>
-          <span>Register</span>
+          <span>Registration</span>
         </div>
 
-        <div>
+        <div class="mini-card">
           <strong id="reviewCount">0</strong>
-          <span>Review</span>
+          <span>Under Review</span>
         </div>
 
-        <div>
+        <div class="mini-card">
           <strong id="approveCount">0</strong>
-          <span>Approve</span>
+          <span>Approved</span>
         </div>
 
-        <div>
+        <div class="mini-card">
           <strong id="digitalIdCount">0</strong>
           <span>Digital ID</span>
         </div>
@@ -91,25 +101,81 @@
     </div>
 
   </div>
+</section>
+
+
+<!-- ================= LIVE STATS ================= -->
+
+<section class="stats">
+
+  <div class="container stats-grid">
+
+    <div class="stat">
+      <strong id="statRegister">0</strong>
+      <span>Registration</span>
+    </div>
+
+    <div class="stat">
+      <strong id="statReview">0</strong>
+      <span>Review</span>
+    </div>
+
+    <div class="stat">
+      <strong id="statApproval">0</strong>
+      <span>Approval</span>
+    </div>
+
+    <div class="stat">
+      <strong id="statDigitalId">0</strong>
+      <span>Digital ID</span>
+    </div>
+
+  </div>
 
 </section>
 
-<!-- =========================
-     BABASAHEB THOUGHT
-========================= -->
+
+<!-- ================= BABASAHEB ================= -->
 
 <section class="ambedkar-section">
 
   <div class="container">
 
-    <div class="ambedkar-thought">
+    <div class="ambedkar-box">
 
-      <div class="thought-text">
-        “मन का विकास मानव अस्तित्व का अंतिम लक्ष्य होना चाहिए।”
+      <div class="ambedkar-photo-wrap">
+
+        <div class="photo-ring">
+          <img
+            src="ambedkar.jpg"
+            alt="Dr. Babasaheb Ambedkar">
+        </div>
+
       </div>
 
-      <div class="thought-name">
-        — डॉ. बाबासाहेब आंबेडकर
+
+      <div class="ambedkar-content">
+
+        <span class="thought-small">
+          विचार • शिक्षा • समानता
+        </span>
+
+        <h2>
+          संविधान और समानता के महान विचारक
+        </h2>
+
+        <div class="quote-mark">“</div>
+
+        <p class="thought-text">
+          मन का विकास मानव अस्तित्व का अंतिम लक्ष्य होना चाहिए।
+        </p>
+
+        <div class="thought-line"></div>
+
+        <p class="thought-author">
+          — डॉ. बाबासाहेब आंबेडकर
+        </p>
+
       </div>
 
     </div>
@@ -119,20 +185,22 @@
 </section>
 
 
-<!-- =========================
-     QUICK ACCESS
-========================= -->
+<!-- ================= QUICK ACCESS ================= -->
 
-<section class="section">
+<section class="section quick-section">
 
   <div class="container">
 
     <div class="head">
 
-      <h2>Quick Access</h2>
+      <span class="section-tag">EXPLORE</span>
+
+      <h2>
+        Quick Access
+      </h2>
 
       <p>
-        Each service has its own dedicated page.
+        RashtriyaSenaa की सभी महत्वपूर्ण सेवाओं तक आसान पहुँच।
       </p>
 
     </div>
@@ -140,74 +208,68 @@
 
     <div class="cards">
 
-
       <a class="card" href="register.html">
 
-        <div class="icon">
-          01
+        <div class="card-number">01</div>
+
+        <div class="card-content">
+          <h3>Registration</h3>
+          <p>
+            अपनी सदस्यता के लिए आवेदन करें।
+          </p>
         </div>
 
-        <h3>
-          Registration
-        </h3>
-
-        <p>
-          Submit your membership application.
-        </p>
+        <div class="arrow">→</div>
 
       </a>
 
 
       <a class="card" href="status.html">
 
-        <div class="icon">
-          02
+        <div class="card-number">02</div>
+
+        <div class="card-content">
+          <h3>Check Status</h3>
+          <p>
+            अपने आवेदन की स्थिति देखें।
+          </p>
         </div>
 
-        <h3>
-          Check Status
-        </h3>
-
-        <p>
-          Track your application.
-        </p>
+        <div class="arrow">→</div>
 
       </a>
 
 
       <a class="card" href="login.html">
 
-        <div class="icon">
-          03
+        <div class="card-number">03</div>
+
+        <div class="card-content">
+          <h3>Member Login</h3>
+          <p>
+            Approved members अपना Digital ID देखें।
+          </p>
         </div>
 
-        <h3>
-          Member Login
-        </h3>
-
-        <p>
-          Access approved member details.
-        </p>
+        <div class="arrow">→</div>
 
       </a>
 
 
       <a class="card" href="admin.html">
 
-        <div class="icon">
-          04
+        <div class="card-number">04</div>
+
+        <div class="card-content">
+          <h3>Admin Panel</h3>
+          <p>
+            Applications को review और manage करें।
+          </p>
         </div>
 
-        <h3>
-          Admin Panel
-        </h3>
-
-        <p>
-          Review member applications.
-        </p>
+        <div class="arrow">→</div>
 
       </a>
-
 
     </div>
 
@@ -215,143 +277,140 @@
 
 </section>
 
+
+<!-- ================= JOIN CTA ================= -->
+
+<section class="join-section">
+
+  <div class="container">
+
+    <div class="join-box">
+
+      <div>
+        <span class="section-tag light">
+          BE A PART OF THE CHANGE
+        </span>
+
+        <h2>
+          समाज के लिए आगे आएं।
+        </h2>
+
+        <p>
+          RashtriyaSenaa से जुड़ें और समाज एवं राष्ट्र के
+          प्रति अपनी जिम्मेदारी निभाएं।
+        </p>
+      </div>
+
+      <a class="btn white" href="register.html">
+        JOIN NOW →
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
 </main>
 
 <footer></footer>
 
 
-<!-- SITE JS -->
-
 <script src="site.js"></script>
-
-
-<!-- =========================
-     AUTOMATIC HOME COUNTERS
-========================= -->
 
 <script>
 
-async function loadHomeStats() {
+/* ==========================================
+   HOME PAGE LIVE STATISTICS
+   ========================================== */
 
-  try {
+async function loadHomeStats(){
+
+  try{
 
     const result = await api({
       action: "getStats"
     });
 
+    if(!result || !result.success){
 
-    if (!result || !result.success) {
-
-      console.log(
-        "Stats error:",
-        result
-      );
-
+      console.log("Stats error:", result);
       return;
 
     }
 
 
     /*
-      HERO COUNTERS
+      Backend ke dono possible formats support honge.
+
+      New:
+      total / pending / approved
+
+      Old:
+      totalRegistered / pendingApplications /
+      approvedMembers / digitalIds
     */
 
-    const registerCount =
-      document.getElementById("registerCount");
+    const total =
+      result.totalRegistered ??
+      result.total ??
+      0;
 
-    const reviewCount =
-      document.getElementById("reviewCount");
+    const pending =
+      result.pendingApplications ??
+      result.pending ??
+      0;
 
-    const approveCount =
-      document.getElementById("approveCount");
-
-    const digitalIdCount =
-      document.getElementById("digitalIdCount");
-
-
-    if (registerCount) {
-
-      registerCount.textContent =
-        result.totalRegistered ?? 0;
-
-    }
-
-
-    if (reviewCount) {
-
-      reviewCount.textContent =
-        result.pendingApplications ?? 0;
-
-    }
-
-
-    if (approveCount) {
-
-      approveCount.textContent =
-        result.approvedMembers ?? 0;
-
-    }
-
-
-    if (digitalIdCount) {
-
-      digitalIdCount.textContent =
-        result.digitalIds ?? 0;
-
-    }
-
+    const approved =
+      result.approvedMembers ??
+      result.approved ??
+      0;
 
     /*
-      BOTTOM STATISTICS
+      Digital ID = approved members
+      Kyunki approved member ko hi Member ID
+      generate hoti hai.
     */
 
-    const statRegister =
-      document.getElementById("statRegister");
-
-    const statReview =
-      document.getElementById("statReview");
-
-    const statApproval =
-      document.getElementById("statApproval");
-
-    const statDigitalId =
-      document.getElementById("statDigitalId");
+    const digitalIds =
+      result.digitalIds ??
+      approved ??
+      0;
 
 
-    if (statRegister) {
+    /* HERO */
 
-      statRegister.textContent =
-        result.totalRegistered ?? 0;
+    document.getElementById("registerCount").textContent =
+      total;
 
-    }
+    document.getElementById("reviewCount").textContent =
+      pending;
 
+    document.getElementById("approveCount").textContent =
+      approved;
 
-    if (statReview) {
-
-      statReview.textContent =
-        result.pendingApplications ?? 0;
-
-    }
-
-
-    if (statApproval) {
-
-      statApproval.textContent =
-        result.approvedMembers ?? 0;
-
-    }
+    document.getElementById("digitalIdCount").textContent =
+      digitalIds;
 
 
-    if (statDigitalId) {
+    /* BOTTOM STATS */
 
-      statDigitalId.textContent =
-        result.digitalIds ?? 0;
+    document.getElementById("statRegister").textContent =
+      total;
 
-    }
+    document.getElementById("statReview").textContent =
+      pending;
+
+    document.getElementById("statApproval").textContent =
+      approved;
+
+    document.getElementById("statDigitalId").textContent =
+      digitalIds;
 
   }
 
-  catch (error) {
+  catch(error){
 
     console.log(
       "Unable to load website statistics:",
@@ -363,16 +422,12 @@ async function loadHomeStats() {
 }
 
 
-/*
-  Page load होते ही statistics load करें
-*/
+/* Page load */
 
 loadHomeStats();
 
 
-/*
-  हर 60 seconds में statistics update करें
-*/
+/* Auto refresh every 60 seconds */
 
 setInterval(
   loadHomeStats,
