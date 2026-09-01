@@ -37,6 +37,7 @@ button{border:0;background:#e21b23;color:#fff;padding:13px 20px;border-radius:8p
 <div id="msg" class="msg"></div>
 </form>
 
+<div id="post" style="font-weight:700;margin:6px 0;"></div>
 <div id="cardArea">
 <div class="id-card print-area">
 <div class="card-top">
@@ -193,6 +194,7 @@ document.getElementById("loginForm").addEventListener("submit",async function(e)
     text("mobileOut",r.mobile);
     text("district",r.district);
     text("state",r.state);
+    text("post",r.post || "सदस्य");
 
     /*
       FIX:
