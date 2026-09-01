@@ -8,11 +8,9 @@
 </head>
 <body>
 <header></header>
-
 <main>
 <section class="section">
 <div class="container">
-
 <div class="head">
 <h2>Admin Panel</h2>
 <p>Admin ID and Password are required.</p>
@@ -21,27 +19,15 @@
 <div id="loginBox" class="form">
 <form id="loginForm">
 <div class="formgrid">
-<div class="field">
-<label>Admin ID *</label>
-<input name="adminId" required>
+<div class="field"><label>Admin ID *</label><input name="adminId" required></div>
+<div class="field"><label>Admin Password *</label><input name="password" type="password" required></div>
 </div>
-
-<div class="field">
-<label>Admin Password *</label>
-<input name="password" type="password" required>
-</div>
-</div>
-
-<div class="buttons">
-<button class="btn red" type="submit">LOGIN</button>
-</div>
-
+<div class="buttons"><button class="btn red" type="submit">LOGIN</button></div>
 <div id="loginMsg" class="msg"></div>
 </form>
 </div>
 
 <div id="panel" style="display:none">
-
 <div class="card">
 <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
 <h3>Applications</h3>
@@ -54,62 +40,53 @@
 <table class="table">
 <thead>
 <tr>
-<th>Application</th>
-<th>Name</th>
-<th>Mobile</th>
-<th>District</th>
-<th>Status</th>
-<th>Post</th>
-<th>Action</th>
+<th>Application</th><th>Name</th><th>Mobile</th><th>District</th>
+<th>Status</th><th>Post</th><th>Action</th>
 </tr>
 </thead>
-
 <tbody id="rows"></tbody>
 </table>
 </div>
 </div>
 </div>
-
 </div>
 </section>
 </main>
-
 <footer></footer>
 <script src="site.js"></script>
-
 <script>
 let admin = {};
 
 const POSTS = [
-  "सदस्य",
-  "ब्लॉक अध्यक्ष",
-  "ब्लॉक उपाध्यक्ष",
-  "तहसील अध्यक्ष",
-  "तहसील उपाध्यक्ष",
-  "जिला अध्यक्ष",
-  "जिला उपाध्यक्ष",
-  "प्रदेश अध्यक्ष",
-  "प्रदेश उपाध्यक्ष",
-  "राष्ट्रीय अध्यक्ष",
-  "राष्ट्रीय उपाध्यक्ष"
+  "सदस्य","ब्लॉक अध्यक्ष","ब्लॉक उपाध्यक्ष","तहसील अध्यक्ष",
+  "तहसील उपाध्यक्ष","जिला अध्यक्ष","जिला उपाध्यक्ष",
+  "प्रदेश अध्यक्ष","प्रदेश उपाध्यक्ष","राष्ट्रीय अध्यक्ष","राष्ट्रीय उपाध्यक्ष"
 ];
+
+function esc(v) {
+  return String(v ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+function postOptions(selected) {
+  return POSTS.map(p =>
+    "<option value='" + esc(p) + "' " +
+    (p === selected ? "selected" : "") + ">" +
+    esc(p) + "</option>"
+  ).join("");
+}
 
 document.getElementById("loginForm").onsubmit = async function(e) {
   e.preventDefault();
-
   admin = Object.fromEntries(new FormData(e.target));
 
   const m = document.getElementById("loginMsg");
-  m.style.display = "block";
   m.className = "msg";
+  m.style.display = "block";
   m.textContent = "Checking...";
 
   try {
-    const r = await api({
-      action: "adminLogin",
-      ...admin
-    });
-
+    const r = await api({action:"adminLogin", ...admin});
     if (!r.success) {
       m.className = "msg error";
       m.textContent = r.message || "Login failed.";
@@ -119,45 +96,18 @@ document.getElementById("loginForm").onsubmit = async function(e) {
     document.getElementById("loginBox").style.display = "none";
     document.getElementById("panel").style.display = "block";
     loadApps();
-
-  } catch (x) {
+  } catch(err) {
     m.className = "msg error";
-    m.textContent = x.message || "Server connection error.";
+    m.textContent = err.message || "Connection error.";
   }
 };
 
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
-
-
-function postOptions(selected) {
-  return POSTS.map(function(p) {
-    return "<option value=\"" + escapeHtml(p) + "\" " +
-      (p === selected ? "selected" : "") + ">" +
-      escapeHtml(p) +
-      "</option>";
-  }).join("");
-}
-
-
 async function loadApps() {
-
   const m = document.getElementById("panelMsg");
   m.style.display = "none";
 
   try {
-
-    const r = await api({
-      action: "adminList",
-      ...admin
-    });
+    const r = await api({action:"adminList", ...admin});
 
     if (!r.success) {
       m.className = "msg error";
@@ -169,125 +119,96 @@ async function loadApps() {
     const rows = document.getElementById("rows");
     rows.innerHTML = "";
 
-    (r.applications || []).forEach(function(x) {
+    (r.applications || []).forEach(x => {
+      const id = String(x.applicationId || "");
+      const status = String(x.status || "").toUpperCase();
 
-      const tr = document.createElement("tr");
+      let postCell = "—";
+      let actionCell = "—";
 
-      let actionHtml = "";
+      if (status === "APPROVED") {
+        postCell =
+          "<select id='post_" + esc(id) + "' style='min-width:160px'>" +
+          postOptions(x.post || "सदस्य") +
+          "</select>";
 
-      if (String(x.status).toUpperCase() === "PENDING") {
-
-        actionHtml =
-          "<button class='btn red' onclick=\"act('" +
-          escapeHtml(x.applicationId) +
-          "','approve')\">APPROVE</button> " +
-
-          "<button class='btn' onclick=\"act('" +
-          escapeHtml(x.applicationId) +
-          "','reject')\">REJECT</button>";
-
-      } else if (String(x.status).toUpperCase() === "APPROVED") {
-
-        actionHtml =
-          "<button class='btn red' onclick=\"savePost('" +
-          escapeHtml(x.applicationId) +
-          "')\">SAVE POST</button>";
-
-      } else {
-
-        actionHtml = "—";
+        actionCell =
+          "<button class='btn red' onclick=\"savePost('" + esc(id) + "')\">SAVE POST</button> " +
+          "<button class='btn' onclick=\"rejectApplication('" + esc(id) + "')\">REJECT</button>";
+      } else if (status === "PENDING") {
+        actionCell =
+          "<button class='btn red' onclick=\"approveApplication('" + esc(id) + "')\">APPROVE</button> " +
+          "<button class='btn' onclick=\"rejectApplication('" + esc(id) + "')\">REJECT</button>";
+      } else if (status === "REJECTED") {
+        actionCell = "REJECTED";
       }
 
+      const tr = document.createElement("tr");
       tr.innerHTML =
-        "<td>" + escapeHtml(x.applicationId) +
-        "<br><small>" + escapeHtml(x.memberId || "") + "</small></td>" +
-
-        "<td>" + escapeHtml(x.name) + "</td>" +
-
-        "<td>" + escapeHtml(x.mobile) + "</td>" +
-
-        "<td>" + escapeHtml(x.district) + "</td>" +
-
-        "<td>" + escapeHtml(x.status) + "</td>" +
-
-        "<td>" +
-          (String(x.status).toUpperCase() === "APPROVED"
-            ? "<select id='post_" + escapeHtml(x.applicationId) +
-              "' style='min-width:160px'>" +
-              postOptions(x.post || "सदस्य") +
-              "</select>"
-            : "—") +
-        "</td>" +
-
-        "<td>" + actionHtml + "</td>";
+        "<td>" + esc(id) + "<br><small>" + esc(x.memberId || "") + "</small></td>" +
+        "<td>" + esc(x.name) + "</td>" +
+        "<td>" + esc(x.mobile) + "</td>" +
+        "<td>" + esc(x.district) + "</td>" +
+        "<td>" + esc(status) + "</td>" +
+        "<td>" + postCell + "</td>" +
+        "<td>" + actionCell + "</td>";
 
       rows.appendChild(tr);
     });
-
-  } catch (x) {
-
+  } catch(err) {
     m.className = "msg error";
-    m.textContent = x.message || "Server connection error.";
+    m.textContent = err.message || "Connection error.";
     m.style.display = "block";
   }
 }
 
-
 async function savePost(applicationId) {
-
   const select = document.getElementById("post_" + applicationId);
-
   if (!select) return;
 
-  const post = select.value;
-
   const r = await api({
-    action: "setPost",
-    applicationId: applicationId,
-    post: post,
+    action:"setPost",
+    applicationId:applicationId,
+    post:select.value,
     ...admin
   });
 
-  const m = document.getElementById("panelMsg");
-
-  m.className = "msg " + (r.success ? "success" : "error");
-  m.textContent = r.message || "Done.";
-  m.style.display = "block";
-
-  if (r.success) {
-    loadApps();
-  }
+  showResult(r);
+  if (r.success) loadApps();
 }
 
+async function approveApplication(applicationId) {
+  if (!confirm("APPROVE this application?")) return;
 
-async function act(id, type) {
-
-  if (!confirm(type.toUpperCase() + " this application?")) {
-    return;
-  }
-
-  /*
-   Important:
-   Backend action is exactly "approve" or "reject".
-   This avoids the previous "Invalid action" problem.
-  */
   const r = await api({
-    action: type,
-    applicationId: id,
+    action:"approve",
+    applicationId:applicationId,
     ...admin
   });
 
+  showResult(r);
+  if (r.success) loadApps();
+}
+
+async function rejectApplication(applicationId) {
+  if (!confirm("REJECT this application?")) return;
+
+  const r = await api({
+    action:"reject",
+    applicationId:applicationId,
+    ...admin
+  });
+
+  showResult(r);
+  if (r.success) loadApps();
+}
+
+function showResult(r) {
   const m = document.getElementById("panelMsg");
-
   m.className = "msg " + (r.success ? "success" : "error");
-  m.textContent = r.message || "Done.";
+  m.textContent = r.message || (r.success ? "Done." : "Action failed.");
   m.style.display = "block";
-
-  if (r.success) {
-    loadApps();
-  }
 }
 </script>
-
 </body>
 </html>
