@@ -63,37 +63,151 @@ button{border:0;background:#e21b23;color:#fff;padding:13px 20px;border-radius:8p
 </div>
 
 <script>
-/* Apne deployed Google Apps Script ka /exec URL yahan rakho */
+/* Google Apps Script Web App */
 const API_URL="https://script.google.com/macros/s/AKfycbzz4mI4hYFRzBN7R6p95GQVwzeX_qhWwhByIhOsT_n9ZiG5m4rGqQvDHs8fhgKeEcuI2g/exec";
 
 async function api(data){
- const r=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)});
- return await r.json();
+  const r=await fetch(API_URL,{
+    method:"POST",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify(data)
+  });
+  return await r.json();
 }
-function text(id,v){document.getElementById(id).textContent=v||""}
+
+function text(id,v){
+  document.getElementById(id).textContent=v||"";
+}
+
+/* Convert common Google Drive photo links into an embeddable image URL. */
+function normalizePhotoUrl(value){
+  if(!value) return "";
+
+  let url=String(value).trim();
+  if(!url) return "";
+
+  /* Already a base64/data image */
+  if(/^data:image\//i.test(url)) return url;
+
+  /* Google Drive: /file/d/FILE_ID/view */
+  let m=url.match(/drive\.google\.com\/file\/d\/([^\/?#]+)/i);
+  if(m){
+    return "https://drive.google.com/thumbnail?id="+encodeURIComponent(m[1])+"&sz=w1000";
+  }
+
+  /* Google Drive: ?id=FILE_ID or &id=FILE_ID */
+  m=url.match(/[?&]id=([^&#]+)/i);
+  if(m && /drive\.google\.com/i.test(url)){
+    return "https://drive.google.com/thumbnail?id="+encodeURIComponent(m[1])+"&sz=w1000";
+  }
+
+  /* Google Drive open?id=FILE_ID */
+  m=url.match(/drive\.google\.com\/open\?id=([^&#]+)/i);
+  if(m){
+    return "https://drive.google.com/thumbnail?id="+encodeURIComponent(m[1])+"&sz=w1000";
+  }
+
+  return url;
+}
+
+function setMemberPhoto(value){
+  const photoBox=document.getElementById("photo");
+  if(!photoBox) return;
+
+  photoBox.innerHTML="";
+
+  const url=normalizePhotoUrl(value);
+
+  if(!url){
+    photoBox.innerHTML="MEMBER<br>PHOTO";
+    return;
+  }
+
+  const img=document.createElement("img");
+  img.alt="Member Photo";
+  img.loading="eager";
+  img.referrerPolicy="no-referrer";
+
+  let triedFallback=false;
+
+  img.onerror=function(){
+    /*
+      If a Drive thumbnail fails, try the original URL once.
+      This also keeps compatibility with old data:image URLs.
+    */
+    if(!triedFallback && url!==String(value).trim()){
+      triedFallback=true;
+      img.src=String(value).trim();
+      return;
+    }
+
+    photoBox.innerHTML="MEMBER<br>PHOTO";
+  };
+
+  img.onload=function(){
+    photoBox.innerHTML="";
+    photoBox.appendChild(img);
+  };
+
+  img.src=url;
+  photoBox.appendChild(img);
+}
 
 document.getElementById("loginForm").addEventListener("submit",async function(e){
- e.preventDefault();
- const d=Object.fromEntries(new FormData(this)),msg=document.getElementById("msg");
- msg.style.display="block";msg.className="msg";msg.textContent="Checking...";
- document.getElementById("cardArea").style.display="none";
- try{
-   const r=await api({action:"login",...d});
-   if(!r.success){
-     msg.className="msg err";msg.textContent=r.message||"Login failed";return;
-   }
-   if(String(r.status).toUpperCase()!=="APPROVED"){
-     msg.className="msg err";msg.textContent="Admin approval ke baad hi ID Card milega.";return;
-   }
-   msg.className="msg ok";msg.textContent="Login successful — ID Card generated.";
-   text("name",r.name);text("memberIdOut",r.memberId);text("father",r.fatherName);text("mobileOut",r.mobile);text("district",r.district);text("state",r.state);
-   const photo=document.getElementById("photo");
-   if(r.photo){photo.innerHTML="";const img=document.createElement("img");img.src=r.photo;img.alt="Member Photo";img.onerror=()=>photo.innerHTML="MEMBER<br>PHOTO";photo.appendChild(img)}
-   else photo.innerHTML="MEMBER<br>PHOTO";
-   document.getElementById("cardArea").style.display="block";
- }catch(err){
-   msg.className="msg err";msg.textContent="Server connection error. Google Apps Script /exec URL check karo.";
- }
+  e.preventDefault();
+
+  const d=Object.fromEntries(new FormData(this));
+  const msg=document.getElementById("msg");
+
+  msg.style.display="block";
+  msg.className="msg";
+  msg.textContent="Checking...";
+
+  document.getElementById("cardArea").style.display="none";
+
+  try{
+    const r=await api({
+      action:"login",
+      memberId:String(d.memberId||"").trim(),
+      mobile:String(d.mobile||"").trim()
+    });
+
+    if(!r.success){
+      msg.className="msg err";
+      msg.textContent=r.message||"Invalid Member ID or Mobile Number";
+      return;
+    }
+
+    if(String(r.status||"").toUpperCase()!=="APPROVED"){
+      msg.className="msg err";
+      msg.textContent="Admin approval ke baad hi ID Card milega.";
+      return;
+    }
+
+    msg.className="msg ok";
+    msg.textContent="Login successful — ID Card generated.";
+
+    text("name",r.name);
+    text("memberIdOut",r.memberId);
+    text("father",r.fatherName);
+    text("mobileOut",r.mobile);
+    text("district",r.district);
+    text("state",r.state);
+
+    /*
+      FIX:
+      Old code directly used r.photo.
+      New code converts Google Drive links to a thumbnail URL,
+      while still supporting old base64 data:image URLs.
+    */
+    setMemberPhoto(r.photo);
+
+    document.getElementById("cardArea").style.display="block";
+
+  }catch(err){
+    msg.className="msg err";
+    msg.textContent="Server connection error. Google Apps Script /exec URL check karo.";
+  }
 });
 </script>
 </body>
