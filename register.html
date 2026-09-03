@@ -1,41 +1,881 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Member Registration | RashtriyaSenaa</title>
 <link rel="stylesheet" href="styles.css">
+
 <style>
-.upload-box{border:2px dashed #ccc;border-radius:12px;padding:16px;background:#fafafa}
-.upload-box input[type=file]{width:100%;padding:10px;background:#fff;border:1px solid #ddd;border-radius:8px}
-.preview{display:none;margin-top:12px;width:110px;height:130px;border-radius:10px;object-fit:cover;border:2px solid #ddd}
-.help{font-size:12px;color:#666;margin-top:6px}
+.upload-box{
+  border:2px dashed #ccc;
+  border-radius:12px;
+  padding:16px;
+  background:#fafafa
+}
+
+.upload-box input[type=file]{
+  width:100%;
+  padding:10px;
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:8px
+}
+
+.preview{
+  display:none;
+  margin-top:12px;
+  width:110px;
+  height:130px;
+  border-radius:10px;
+  object-fit:cover;
+  border:2px solid #ddd
+}
+
+.help{
+  font-size:12px;
+  color:#666;
+  margin-top:6px
+}
+
+/* Location dropdown */
+.location-select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fff;
+  font-size:15px;
+  box-sizing:border-box;
+}
+
+.location-select:disabled{
+  background:#f1f1f1;
+  color:#888;
+  cursor:not-allowed;
+}
 </style>
 </head>
+
 <body>
+
 <header></header>
-<main><section class="section"><div class="container">
-<div class="head"><h2>Member Registration</h2><p>No mobile OTP and no email OTP are used. Application will be sent to admin for approval.</p></div>
-<div class="form"><form id="form">
-<div class="formgrid">
-<div class="field"><label>Name *</label><input name="name" required></div>
-<div class="field"><label>Father Name *</label><input name="fatherName" required></div>
-<div class="field"><label>Mobile *</label><input name="mobile" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required></div>
-<div class="field"><label>Email</label><input name="email" type="email"></div>
-<div class="field"><label>Date of Birth *</label><input name="dob" type="date" required></div>
-<div class="field"><label>District *</label><input name="district" required></div>
-<div class="field"><label>State *</label><input name="state" required></div>
-<div class="field"><label>Upload Photo *</label><div class="upload-box"><input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp" required><img id="preview" class="preview" alt="Photo preview"><div class="help">JPG, PNG or WEBP • Maximum 5 MB</div></div></div>
-<div class="field full"><label>Address *</label><textarea name="address" required></textarea></div>
+
+<main>
+<section class="section">
+<div class="container">
+
+<div class="head">
+<h2>Member Registration</h2>
+<p>
+No mobile OTP and no email OTP are used.
+Application will be sent to admin for approval.
+</p>
 </div>
-<div class="buttons"><button id="submitBtn" class="btn red" type="submit">SUBMIT APPLICATION</button></div>
-<div id="msg" class="msg"></div>
-</form></div></div></section></main>
+
+<div class="form">
+
+<form id="form">
+
+<div class="formgrid">
+
+<div class="field">
+<label>Name *</label>
+<input name="name" required>
+</div>
+
+
+<div class="field">
+<label>Father Name *</label>
+<input name="fatherName" required>
+</div>
+
+
+<div class="field">
+<label>Mobile *</label>
+<input
+name="mobile"
+inputmode="numeric"
+pattern="[0-9]{10}"
+maxlength="10"
+required>
+</div>
+
+
+<div class="field">
+<label>Email</label>
+<input
+name="email"
+type="email">
+</div>
+
+
+<div class="field">
+<label>Date of Birth *</label>
+<input
+name="dob"
+type="date"
+required>
+</div>
+
+
+<!-- STATE -->
+
+<div class="field">
+
+<label>State *</label>
+
+<select
+name="state"
+id="state"
+class="location-select"
+required>
+
+<option value="">
+Select State
+</option>
+
+</select>
+
+</div>
+
+
+<!-- MANDAL -->
+
+<div class="field">
+
+<label>Mandal *</label>
+
+<select
+name="mandal"
+id="mandal"
+class="location-select"
+required
+disabled>
+
+<option value="">
+Select Mandal
+</option>
+
+</select>
+
+</div>
+
+
+<!-- DISTRICT -->
+
+<div class="field">
+
+<label>District *</label>
+
+<select
+name="district"
+id="district"
+class="location-select"
+required
+disabled>
+
+<option value="">
+Select District
+</option>
+
+</select>
+
+</div>
+
+
+<!-- PHOTO -->
+
+<div class="field">
+
+<label>Upload Photo *</label>
+
+<div class="upload-box">
+
+<input
+id="photoFile"
+type="file"
+accept="image/jpeg,image/png,image/webp"
+required>
+
+<img
+id="preview"
+class="preview"
+alt="Photo preview">
+
+<div class="help">
+JPG, PNG or WEBP • Maximum 5 MB
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ADDRESS -->
+
+<div class="field full">
+
+<label>Address *</label>
+
+<textarea
+name="address"
+required></textarea>
+
+</div>
+
+</div>
+
+
+<div class="buttons">
+
+<button
+id="submitBtn"
+class="btn red"
+type="submit">
+
+SUBMIT APPLICATION
+
+</button>
+
+</div>
+
+
+<div
+id="msg"
+class="msg">
+</div>
+
+</form>
+
+</div>
+</div>
+</section>
+</main>
+
 <footer></footer>
+
 <script src="site.js"></script>
+
 <script>
-const form=document.getElementById('form'), fileInput=document.getElementById('photoFile'), preview=document.getElementById('preview'), msg=document.getElementById('msg'), btn=document.getElementById('submitBtn');
-fileInput.addEventListener('change',()=>{const f=fileInput.files[0];if(!f)return; if(f.size>5*1024*1024){fileInput.value='';preview.style.display='none';alert('Photo 5 MB se chhoti honi chahiye.');return;} preview.src=URL.createObjectURL(f);preview.style.display='block';});
-function imageToDataUrl(file){return new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>{const im=new Image();im.onload=()=>{const max=1000,scale=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*scale);c.height=Math.round(im.height*scale);c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.84));};im.onerror=reject;im.src=fr.result;};fr.onerror=reject;fr.readAsDataURL(file);});}
-form.addEventListener('submit',async e=>{e.preventDefault();const f=fileInput.files[0];if(!f){alert('Photo upload karo.');return;}if(f.size>5*1024*1024){alert('Photo 5 MB se chhoti honi chahiye.');return;}btn.disabled=true;btn.textContent='UPLOADING PHOTO...';msg.style.display='block';msg.className='msg';msg.textContent='Photo upload ho rahi hai, please wait...';try{const d=Object.fromEntries(new FormData(form));d.photoData=await imageToDataUrl(f);delete d.photo;const r=await api({action:'register',...d});if(!r.success)throw new Error(r.message||'Registration failed');msg.className='msg success';msg.innerHTML='Application submitted successfully.<br><b>Application ID: '+r.applicationId+'</b><br>Status: PENDING — Admin approval ke baad Member ID aur ID Card milega.';form.reset();preview.style.display='none';}catch(x){msg.className='msg error';msg.textContent=x.message||'Something went wrong.';}finally{btn.disabled=false;btn.textContent='SUBMIT APPLICATION';}});
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const form =
+document.getElementById('form');
+
+const fileInput =
+document.getElementById('photoFile');
+
+const preview =
+document.getElementById('preview');
+
+const msg =
+document.getElementById('msg');
+
+const btn =
+document.getElementById('submitBtn');
+
+const stateSelect =
+document.getElementById('state');
+
+const mandalSelect =
+document.getElementById('mandal');
+
+const districtSelect =
+document.getElementById('district');
+
+
+/* =========================================================
+   LOCATION DATA
+   ========================================================= */
+
+let locations = [];
+
+
+/* =========================================================
+   LOAD LOCATIONS
+   ========================================================= */
+
+async function loadLocations(){
+
+  try{
+
+    stateSelect.disabled = true;
+
+    stateSelect.innerHTML =
+      '<option value="">Loading States...</option>';
+
+    const result =
+      await api({
+        action:'getLocations'
+      });
+
+
+    if(
+      !result ||
+      !result.success
+    ){
+
+      throw new Error(
+        result?.message ||
+        'Locations load nahi ho paayi.'
+      );
+    }
+
+
+    locations =
+      Array.isArray(result.locations)
+      ? result.locations
+      : [];
+
+
+    /* Unique States */
+
+    const states =
+      [...new Set(
+        locations
+          .map(x => String(x.state || '').trim())
+          .filter(Boolean)
+      )].sort();
+
+
+    stateSelect.innerHTML =
+      '<option value="">Select State</option>';
+
+
+    states.forEach(state => {
+
+      const option =
+        document.createElement('option');
+
+      option.value = state;
+      option.textContent = state;
+
+      stateSelect.appendChild(option);
+
+    });
+
+
+    stateSelect.disabled =
+      states.length === 0;
+
+
+    if(states.length === 0){
+
+      stateSelect.innerHTML =
+        '<option value="">No State Available</option>';
+
+    }
+
+  }catch(error){
+
+    console.error(
+      'Location loading error:',
+      error
+    );
+
+    stateSelect.disabled = true;
+
+    stateSelect.innerHTML =
+      '<option value="">Locations unavailable</option>';
+
+    alert(
+      'State/Mandal/District list load nahi ho paayi. Please try again.'
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   STATE CHANGE
+   ========================================================= */
+
+stateSelect.addEventListener(
+  'change',
+  () => {
+
+    const selectedState =
+      stateSelect.value.trim();
+
+
+    /* Reset Mandal */
+
+    mandalSelect.innerHTML =
+      '<option value="">Select Mandal</option>';
+
+    mandalSelect.disabled = true;
+
+
+    /* Reset District */
+
+    districtSelect.innerHTML =
+      '<option value="">Select District</option>';
+
+    districtSelect.disabled = true;
+
+
+    if(!selectedState){
+      return;
+    }
+
+
+    /* Get Mandals for selected State */
+
+    const mandals =
+      [...new Set(
+
+        locations
+          .filter(
+            x =>
+              String(x.state || '').trim() ===
+              selectedState
+          )
+          .map(
+            x =>
+              String(x.mandal || '').trim()
+          )
+          .filter(Boolean)
+
+      )].sort();
+
+
+    mandals.forEach(mandal => {
+
+      const option =
+        document.createElement('option');
+
+      option.value = mandal;
+      option.textContent = mandal;
+
+      mandalSelect.appendChild(option);
+
+    });
+
+
+    mandalSelect.disabled =
+      mandals.length === 0;
+
+  }
+);
+
+
+/* =========================================================
+   MANDAL CHANGE
+   ========================================================= */
+
+mandalSelect.addEventListener(
+  'change',
+  () => {
+
+    const selectedState =
+      stateSelect.value.trim();
+
+    const selectedMandal =
+      mandalSelect.value.trim();
+
+
+    /* Reset District */
+
+    districtSelect.innerHTML =
+      '<option value="">Select District</option>';
+
+    districtSelect.disabled = true;
+
+
+    if(
+      !selectedState ||
+      !selectedMandal
+    ){
+
+      return;
+    }
+
+
+    /* Get Districts */
+
+    const districts =
+      [...new Set(
+
+        locations
+
+          .filter(
+            x =>
+              String(x.state || '').trim() ===
+              selectedState &&
+
+              String(x.mandal || '').trim() ===
+              selectedMandal
+          )
+
+          .map(
+            x =>
+              String(x.district || '').trim()
+          )
+
+          .filter(Boolean)
+
+      )].sort();
+
+
+    districts.forEach(district => {
+
+      const option =
+        document.createElement('option');
+
+      option.value = district;
+      option.textContent = district;
+
+      districtSelect.appendChild(option);
+
+    });
+
+
+    districtSelect.disabled =
+      districts.length === 0;
+
+  }
+);
+
+
+/* =========================================================
+   PHOTO PREVIEW
+   ========================================================= */
+
+fileInput.addEventListener(
+  'change',
+  () => {
+
+    const f =
+      fileInput.files[0];
+
+    if(!f){
+
+      preview.style.display =
+        'none';
+
+      return;
+    }
+
+
+    if(
+      f.size >
+      5 * 1024 * 1024
+    ){
+
+      fileInput.value = '';
+
+      preview.style.display =
+        'none';
+
+      alert(
+        'Photo 5 MB se chhoti honi chahiye.'
+      );
+
+      return;
+    }
+
+
+    preview.src =
+      URL.createObjectURL(f);
+
+    preview.style.display =
+      'block';
+
+  }
+);
+
+
+/* =========================================================
+   IMAGE TO DATA URL
+   ========================================================= */
+
+function imageToDataUrl(file){
+
+  return new Promise(
+    (resolve,reject) => {
+
+      const fr =
+        new FileReader();
+
+
+      fr.onload = () => {
+
+        const im =
+          new Image();
+
+
+        im.onload = () => {
+
+          const max =
+            1000;
+
+
+          const scale =
+            Math.min(
+              1,
+              max /
+              Math.max(
+                im.width,
+                im.height
+              )
+            );
+
+
+          const c =
+            document.createElement(
+              'canvas'
+            );
+
+
+          c.width =
+            Math.round(
+              im.width * scale
+            );
+
+
+          c.height =
+            Math.round(
+              im.height * scale
+            );
+
+
+          c.getContext(
+            '2d'
+          ).drawImage(
+            im,
+            0,
+            0,
+            c.width,
+            c.height
+          );
+
+
+          resolve(
+            c.toDataURL(
+              'image/jpeg',
+              .84
+            )
+          );
+
+        };
+
+
+        im.onerror =
+          reject;
+
+        im.src =
+          fr.result;
+
+      };
+
+
+      fr.onerror =
+        reject;
+
+      fr.readAsDataURL(file);
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   FORM SUBMIT
+   ========================================================= */
+
+form.addEventListener(
+  'submit',
+  async e => {
+
+    e.preventDefault();
+
+
+    const f =
+      fileInput.files[0];
+
+
+    if(!f){
+
+      alert(
+        'Photo upload karo.'
+      );
+
+      return;
+    }
+
+
+    if(
+      f.size >
+      5 * 1024 * 1024
+    ){
+
+      alert(
+        'Photo 5 MB se chhoti honi chahiye.'
+      );
+
+      return;
+    }
+
+
+    /* Location validation */
+
+    if(!stateSelect.value){
+
+      alert(
+        'State select karo.'
+      );
+
+      stateSelect.focus();
+
+      return;
+    }
+
+
+    if(!mandalSelect.value){
+
+      alert(
+        'Mandal select karo.'
+      );
+
+      mandalSelect.focus();
+
+      return;
+    }
+
+
+    if(!districtSelect.value){
+
+      alert(
+        'District select karo.'
+      );
+
+      districtSelect.focus();
+
+      return;
+    }
+
+
+    btn.disabled = true;
+
+    btn.textContent =
+      'UPLOADING PHOTO...';
+
+
+    msg.style.display =
+      'block';
+
+    msg.className =
+      'msg';
+
+    msg.textContent =
+      'Photo upload ho rahi hai, please wait...';
+
+
+    try{
+
+      const d =
+        Object.fromEntries(
+          new FormData(form)
+        );
+
+
+      d.photoData =
+        await imageToDataUrl(f);
+
+
+      delete d.photo;
+
+
+      const r =
+        await api({
+          action:'register',
+          ...d
+        });
+
+
+      if(!r.success){
+
+        throw new Error(
+          r.message ||
+          'Registration failed'
+        );
+      }
+
+
+      msg.className =
+        'msg success';
+
+
+      msg.innerHTML =
+        'Application submitted successfully.<br>' +
+
+        '<b>Application ID: ' +
+        r.applicationId +
+        '</b><br>' +
+
+        'Status: PENDING — Admin approval ke baad Member ID aur ID Card milega.';
+
+
+      form.reset();
+
+
+      preview.style.display =
+        'none';
+
+
+      /* Reset locations */
+
+      mandalSelect.innerHTML =
+        '<option value="">Select Mandal</option>';
+
+      mandalSelect.disabled =
+        true;
+
+
+      districtSelect.innerHTML =
+        '<option value="">Select District</option>';
+
+      districtSelect.disabled =
+        true;
+
+
+    }catch(x){
+
+      msg.className =
+        'msg error';
+
+      msg.textContent =
+        x.message ||
+        'Something went wrong.';
+
+
+    }finally{
+
+      btn.disabled =
+        false;
+
+      btn.textContent =
+        'SUBMIT APPLICATION';
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+loadLocations();
+
 </script>
-</body></html>
+
+</body>
+</html>
