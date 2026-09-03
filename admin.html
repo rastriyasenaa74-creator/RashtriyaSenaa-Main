@@ -6,7 +6,9 @@
 <title>Admin Panel | RastriyaSenaa</title>
 <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
 <header></header>
 
 <main>
@@ -18,8 +20,10 @@
 <p>Admin ID and Password are required.</p>
 </div>
 
+
 <!-- LOGIN -->
 <div id="loginBox" class="form">
+
 <form id="loginForm">
 
 <div class="formgrid">
@@ -43,11 +47,13 @@
 <div id="loginMsg" class="msg"></div>
 
 </form>
+
 </div>
 
 
 <!-- ADMIN PANEL -->
 <div id="panel" style="display:none">
+
 
 <!-- ADMIN INFORMATION -->
 <div class="card" style="margin-bottom:20px">
@@ -55,14 +61,20 @@
 <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
 
 <div>
-<h3 style="margin-bottom:6px">Admin Dashboard</h3>
 
-<div id="adminInfo" style="font-size:14px;line-height:1.7">
+<h3 style="margin-bottom:6px">
+Admin Dashboard
+</h3>
+
+<div id="adminInfo"
+style="font-size:14px;line-height:1.7">
 </div>
 
 </div>
 
-<button class="btn red" type="button" onclick="loadApps()">
+<button class="btn red"
+type="button"
+onclick="loadApps()">
 REFRESH
 </button>
 
@@ -71,11 +83,250 @@ REFRESH
 </div>
 
 
+<!-- ========================= -->
+<!-- ADMIN MANAGEMENT -->
+<!-- ========================= -->
+
+<div id="adminManagement"
+class="card"
+style="margin-bottom:20px;display:none">
+
+<h3>Admin Management</h3>
+
+<p style="font-size:14px;margin-bottom:15px">
+Only Main Admin can appoint and manage other Admins.
+</p>
+
+
+<!-- CREATE ADMIN -->
+
+<div class="form">
+
+<h4 style="margin-bottom:15px">
+Appoint New Admin
+</h4>
+
+<form id="createAdminForm">
+
+<div class="formgrid">
+
+
+<div class="field">
+
+<label>Admin ID *</label>
+
+<input
+name="newAdminId"
+id="newAdminId"
+required
+placeholder="Enter Admin ID">
+
+</div>
+
+
+<div class="field">
+
+<label>Password *</label>
+
+<input
+name="newPassword"
+id="newPassword"
+type="password"
+required
+placeholder="Enter Password">
+
+</div>
+
+
+<div class="field">
+
+<label>Admin Email *</label>
+
+<input
+name="adminEmail"
+id="adminEmail"
+type="email"
+required
+placeholder="Enter Email">
+
+</div>
+
+
+<div class="field">
+
+<label>Admin Role *</label>
+
+<select
+name="role"
+id="adminRole"
+required
+onchange="adminRoleChanged()">
+
+<option value="">
+Select Role
+</option>
+
+<option value="NATIONAL">
+National Admin
+</option>
+
+<option value="STATE">
+State Admin
+</option>
+
+<option value="MANDAL">
+Mandal Admin
+</option>
+
+<option value="DISTRICT">
+District Admin
+</option>
+
+</select>
+
+</div>
+
+
+<!-- STATE -->
+
+<div class="field"
+id="adminStateBox"
+style="display:none">
+
+<label>State *</label>
+
+<select
+id="adminState"
+name="state"
+onchange="loadAdminMandals()">
+
+<option value="">
+Select State
+</option>
+
+</select>
+
+</div>
+
+
+<!-- MANDAL -->
+
+<div class="field"
+id="adminMandalBox"
+style="display:none">
+
+<label>Mandal *</label>
+
+<select
+id="adminMandal"
+name="mandal"
+onchange="loadAdminDistricts()"
+disabled>
+
+<option value="">
+Select Mandal
+</option>
+
+</select>
+
+</div>
+
+
+<!-- DISTRICT -->
+
+<div class="field"
+id="adminDistrictBox"
+style="display:none">
+
+<label>District *</label>
+
+<select
+id="adminDistrict"
+name="district"
+disabled>
+
+<option value="">
+Select District
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+<div class="buttons">
+
+<button
+class="btn red"
+type="submit">
+APPOINT ADMIN
+</button>
+
+</div>
+
+
+<div id="adminCreateMsg"
+class="msg">
+</div>
+
+</form>
+
+</div>
+
+
+<!-- ADMIN LIST -->
+
+<div style="margin-top:25px">
+
+<h4>Existing Admins</h4>
+
+<div class="tablewrap">
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>Admin ID</th>
+<th>Email</th>
+<th>Role</th>
+<th>State</th>
+<th>Mandal</th>
+<th>District</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="adminRows">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ========================= -->
 <!-- APPLICATIONS -->
+<!-- ========================= -->
+
 <div class="card">
 
 <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+
 <h3>Applications</h3>
+
 </div>
 
 <div id="panelMsg" class="msg"></div>
@@ -85,7 +336,9 @@ REFRESH
 <table class="table">
 
 <thead>
+
 <tr>
+
 <th>Application</th>
 <th>Name</th>
 <th>Mobile</th>
@@ -96,7 +349,9 @@ REFRESH
 <th>Status</th>
 <th>Post</th>
 <th>Action</th>
+
 </tr>
+
 </thead>
 
 <tbody id="rows"></tbody>
@@ -110,6 +365,7 @@ REFRESH
 </div>
 
 </div>
+
 </section>
 </main>
 
@@ -121,533 +377,1528 @@ REFRESH
 
 let admin = {};
 
+let locations = [];
+
+
+
 /*
-  Available Posts
+ AVAILABLE POSTS
 */
+
 const POSTS = [
-  "सदस्य",
-  "ब्लॉक अध्यक्ष",
-  "ब्लॉक उपाध्यक्ष",
-  "ब्लॉक महासचिव",
-  "ब्लॉक सचिव",
-  "तहसील अध्यक्ष",
-  "तहसील उपाध्यक्ष",
-  "तहसील महासचिव",
-  "तहसील सचिव",
-  "जिला अध्यक्ष",
-  "जिला उपाध्यक्ष",
-  "जिला महासचिव",
-  "जिला सचिव",
-  "मण्डल अध्यक्ष",
-  "मण्डल उपाध्यक्ष",
-  "मण्डल महासचिव",
-  "मण्डल सचिव",
-  "प्रदेश अध्यक्ष",
-  "प्रदेश उपाध्यक्ष",
-  "प्रदेश महासचिव",
-  "प्रदेश सचिव",
-  "राष्ट्रीय अध्यक्ष",
-  "राष्ट्रीय उपाध्यक्ष",
-  "राष्ट्रीय महासचिव",
-  "राष्ट्रीय सचिव"
+
+"सदस्य",
+
+"ब्लॉक अध्यक्ष",
+"ब्लॉक उपाध्यक्ष",
+"ब्लॉक महासचिव",
+"ब्लॉक सचिव",
+
+"तहसील अध्यक्ष",
+"तहसील उपाध्यक्ष",
+"तहसील महासचिव",
+"तहसील सचिव",
+
+"जिला अध्यक्ष",
+"जिला उपाध्यक्ष",
+"जिला महासचिव",
+"जिला सचिव",
+
+"मण्डल अध्यक्ष",
+"मण्डल उपाध्यक्ष",
+"मण्डल महासचिव",
+"मण्डल सचिव",
+
+"प्रदेश अध्यक्ष",
+"प्रदेश उपाध्यक्ष",
+"प्रदेश महासचिव",
+"प्रदेश सचिव",
+
+"राष्ट्रीय अध्यक्ष",
+"राष्ट्रीय उपाध्यक्ष",
+"राष्ट्रीय महासचिव",
+"राष्ट्रीय सचिव"
+
 ];
 
 
-/*
-  HTML Escape
-*/
-function esc(v) {
 
-  return String(v ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+/*
+ HTML ESCAPE
+*/
+
+function esc(v){
+
+return String(v ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+/*
+ ROLE NAME
+*/
+
+function roleName(role){
+
+const r =
+String(role || "").toUpperCase();
+
+if(r==="MAIN")
+return "Main Admin";
+
+if(r==="NATIONAL")
+return "National Admin";
+
+if(r==="STATE")
+return "State Admin";
+
+if(r==="MANDAL")
+return "Mandal Admin";
+
+if(r==="DISTRICT")
+return "District Admin";
+
+return role || "Admin";
+
+}
+
+
+
+/*
+ SHOW ADMIN INFORMATION
+*/
+
+function showAdminInfo(){
+
+const box =
+document.getElementById("adminInfo");
+
+if(!box)return;
+
+let html =
+"<strong>Role:</strong> " +
+esc(roleName(admin.role));
+
+
+if(admin.state){
+
+html +=
+" &nbsp; | &nbsp; <strong>State:</strong> " +
+esc(admin.state);
+
+}
+
+
+if(admin.mandal){
+
+html +=
+" &nbsp; | &nbsp; <strong>Mandal:</strong> " +
+esc(admin.mandal);
+
+}
+
+
+if(admin.district){
+
+html +=
+" &nbsp; | &nbsp; <strong>District:</strong> " +
+esc(admin.district);
+
+}
+
+
+box.innerHTML = html;
+
+}
+
+
+
+/*
+ POST DROPDOWN
+*/
+
+function postOptions(selected){
+
+return POSTS.map(p =>
+
+"<option value='" +
+esc(p) +
+"' " +
+
+(p === selected
+? "selected"
+: "") +
+
+">" +
+
+esc(p) +
+
+"</option>"
+
+).join("");
+
+}
+
+
+
+/*
+ LOGIN
+*/
+
+document
+.getElementById("loginForm")
+.onsubmit = async function(e){
+
+e.preventDefault();
+
+admin =
+Object.fromEntries(
+new FormData(e.target)
+);
+
+
+const m =
+document.getElementById("loginMsg");
+
+m.className="msg";
+
+m.style.display="block";
+
+m.textContent="Checking...";
+
+
+try{
+
+const r =
+await api({
+
+action:"adminLogin",
+
+...admin
+
+});
+
+
+if(!r.success){
+
+m.className="msg error";
+
+m.textContent =
+r.message ||
+"Login failed.";
+
+return;
 
 }
 
 
 /*
-  Post Dropdown
+ SAVE ADMIN INFORMATION
 */
-function postOptions(selected) {
 
-  return POSTS.map(p =>
+admin = {
 
-    "<option value='" + esc(p) + "' " +
-    (p === selected ? "selected" : "") +
-    ">" +
-    esc(p) +
-    "</option>"
+...admin,
 
-  ).join("");
+...(r.admin || {}),
 
-}
+role:
+r.role ||
+(r.admin && r.admin.role) ||
+"",
 
+state:
+r.state ||
+(r.admin && r.admin.state) ||
+"",
 
-/*
-  Role Name
-*/
-function roleName(role) {
+mandal:
+r.mandal ||
+(r.admin && r.admin.mandal) ||
+"",
 
-  const r = String(role || "").toUpperCase();
-
-  if (r === "MAIN") return "Main Admin";
-  if (r === "NATIONAL") return "National Admin";
-  if (r === "STATE") return "State Admin";
-  if (r === "MANDAL") return "Mandal Admin";
-  if (r === "DISTRICT") return "District Admin";
-
-  return role || "Admin";
-
-}
-
-
-/*
-  Show Admin Information
-*/
-function showAdminInfo() {
-
-  const box = document.getElementById("adminInfo");
-
-  if (!box) return;
-
-  const role = roleName(admin.role);
-
-  let html =
-    "<strong>Role:</strong> " + esc(role);
-
-  if (admin.state) {
-    html +=
-      " &nbsp; | &nbsp; <strong>State:</strong> " +
-      esc(admin.state);
-  }
-
-  if (admin.mandal) {
-    html +=
-      " &nbsp; | &nbsp; <strong>Mandal:</strong> " +
-      esc(admin.mandal);
-  }
-
-  if (admin.district) {
-    html +=
-      " &nbsp; | &nbsp; <strong>District:</strong> " +
-      esc(admin.district);
-  }
-
-  box.innerHTML = html;
-
-}
-
-
-/*
-  LOGIN
-*/
-document.getElementById("loginForm").onsubmit = async function(e) {
-
-  e.preventDefault();
-
-  admin = Object.fromEntries(new FormData(e.target));
-
-  const m = document.getElementById("loginMsg");
-
-  m.className = "msg";
-  m.style.display = "block";
-  m.textContent = "Checking...";
-
-  try {
-
-    const r = await api({
-      action:"adminLogin",
-      ...admin
-    });
-
-    if (!r.success) {
-
-      m.className = "msg error";
-      m.textContent = r.message || "Login failed.";
-
-      return;
-
-    }
-
-
-    /*
-      Save returned admin information
-    */
-    admin = {
-      ...admin,
-      ...(r.admin || {}),
-      role: r.role || (r.admin && r.admin.role) || "",
-      state: r.state || (r.admin && r.admin.state) || "",
-      mandal: r.mandal || (r.admin && r.admin.mandal) || "",
-      district: r.district || (r.admin && r.admin.district) || ""
-    };
-
-
-    document.getElementById("loginBox").style.display = "none";
-
-    document.getElementById("panel").style.display = "block";
-
-    showAdminInfo();
-
-    loadApps();
-
-  } catch(err) {
-
-    m.className = "msg error";
-    m.textContent = err.message || "Connection error.";
-
-  }
+district:
+r.district ||
+(r.admin && r.admin.district) ||
+""
 
 };
 
 
+document
+.getElementById("loginBox")
+.style.display="none";
+
+
+document
+.getElementById("panel")
+.style.display="block";
+
+
+showAdminInfo();
+
+
 /*
-  LOAD APPLICATIONS
+ MAIN ADMIN ONLY
 */
-async function loadApps() {
 
-  const m = document.getElementById("panelMsg");
+if(
+String(admin.role || "")
+.toUpperCase()==="MAIN"
+){
 
-  m.style.display = "none";
+document
+.getElementById("adminManagement")
+.style.display="block";
 
-  try {
+loadLocations();
 
-    const r = await api({
-      action:"adminList",
-      ...admin
-    });
+loadAdmins();
 
+}
 
-    if (!r.success) {
 
-      m.className = "msg error";
-      m.textContent =
-        r.message || "Unable to load applications.";
+loadApps();
 
-      m.style.display = "block";
 
-      return;
+}catch(err){
 
-    }
+m.className="msg error";
 
+m.textContent =
+err.message ||
+"Connection error.";
 
-    /*
-      Update admin information if backend sends it
-    */
-    if (r.admin) {
+}
 
-      admin = {
-        ...admin,
-        ...r.admin
-      };
+};
 
-      showAdminInfo();
 
-    }
 
+/*
+ =========================
+ LOCATION LOAD
+ =========================
+*/
 
-    const rows = document.getElementById("rows");
+async function loadLocations(){
 
-    rows.innerHTML = "";
+try{
 
+const r =
+await api({
 
-    const applications = r.applications || [];
+action:"getLocations"
 
+});
 
-    if (!applications.length) {
 
-      rows.innerHTML =
-        "<tr><td colspan='10' style='text-align:center;padding:20px'>" +
-        "No applications found." +
-        "</td></tr>";
+if(
+r &&
+r.success &&
+Array.isArray(r.locations)
+){
 
-      return;
+locations =
+r.locations;
 
-    }
+fillAdminStates();
 
+}
 
-    applications.forEach(x => {
+}catch(err){
 
-      const id =
-        String(x.applicationId || "");
+console.log(
+"Location load error:",
+err
+);
 
-      const status =
-        String(x.status || "").toUpperCase();
+}
 
+}
 
-      let postCell = "—";
 
-      let actionCell = "—";
 
+/*
+ FILL STATES
+*/
 
-      /*
-        APPROVED
-      */
-      if (status === "APPROVED") {
+function fillAdminStates(){
 
-        postCell =
-          "<select id='post_" +
-          esc(id) +
-          "' style='min-width:160px'>" +
+const select =
+document.getElementById("adminState");
 
-          postOptions(
-            x.post || "सदस्य"
-          ) +
+if(!select)return;
 
-          "</select>";
+const states =
+[...
+new Set(
+locations
+.map(x => String(x.state || "").trim())
+.filter(Boolean)
+)
+]
+.sort();
 
 
-        actionCell =
+select.innerHTML =
+"<option value=''>Select State</option>";
 
-          "<button class='btn red' " +
-          "onclick=\"savePost('" +
-          esc(id) +
-          "')\">" +
-          "SAVE POST" +
-          "</button> " +
 
-          "<button class='btn' " +
-          "onclick=\"rejectApplication('" +
-          esc(id) +
-          "')\">" +
-          "REJECT" +
-          "</button>";
+states.forEach(state => {
 
-      }
+const option =
+document.createElement("option");
 
+option.value=state;
 
-      /*
-        PENDING
-      */
-      else if (status === "PENDING") {
+option.textContent=state;
 
-        actionCell =
+select.appendChild(option);
 
-          "<button class='btn red' " +
-          "onclick=\"approveApplication('" +
-          esc(id) +
-          "')\">" +
-          "APPROVE" +
-          "</button> " +
+});
 
-          "<button class='btn' " +
-          "onclick=\"rejectApplication('" +
-          esc(id) +
-          "')\">" +
-          "REJECT" +
-          "</button>";
+}
 
-      }
 
 
-      /*
-        REJECTED
-      */
-      else if (status === "REJECTED") {
+/*
+ ADMIN ROLE CHANGED
+*/
 
-        actionCell = "REJECTED";
+function adminRoleChanged(){
 
-      }
+const role =
+document.getElementById("adminRole")
+.value;
 
 
-      const tr =
-        document.createElement("tr");
+const stateBox =
+document.getElementById("adminStateBox");
 
+const mandalBox =
+document.getElementById("adminMandalBox");
 
-      tr.innerHTML =
+const districtBox =
+document.getElementById("adminDistrictBox");
 
-        "<td>" +
-        esc(id) +
-        "<br><small>" +
-        esc(x.memberId || "") +
-        "</small>" +
-        "</td>" +
 
-        "<td>" +
-        esc(x.name) +
-        "</td>" +
+stateBox.style.display="none";
+mandalBox.style.display="none";
+districtBox.style.display="none";
 
-        "<td>" +
-        esc(x.mobile) +
-        "</td>" +
 
-        "<td>" +
-        esc(x.state || "") +
-        "</td>" +
+document
+.getElementById("adminState")
+.value="";
 
-        "<td>" +
-        esc(x.mandal || "") +
-        "</td>" +
 
-        "<td>" +
-        esc(x.district || "") +
-        "</td>" +
+document
+.getElementById("adminMandal")
+.value="";
 
-        "<td>" +
-        esc(x.assignedDistrictAdmin || "") +
-        "</td>" +
 
-        "<td>" +
-        esc(status) +
-        "</td>" +
+document
+.getElementById("adminDistrict")
+.value="";
 
-        "<td>" +
-        postCell +
-        "</td>" +
 
-        "<td>" +
-        actionCell +
-        "</td>";
+document
+.getElementById("adminMandal")
+.disabled=true;
 
 
-      rows.appendChild(tr);
+document
+.getElementById("adminDistrict")
+.disabled=true;
 
-    });
 
+/*
+ NATIONAL
+*/
 
-  } catch(err) {
+if(role==="NATIONAL"){
 
-    m.className = "msg error";
-
-    m.textContent =
-      err.message || "Connection error.";
-
-    m.style.display = "block";
-
-  }
+return;
 
 }
 
 
 /*
-  SAVE POST
+ STATE
 */
-async function savePost(applicationId) {
 
-  const select =
-    document.getElementById(
-      "post_" + applicationId
-    );
+if(
+role==="STATE" ||
+role==="MANDAL" ||
+role==="DISTRICT"
+){
 
-  if (!select) return;
-
-
-  const r = await api({
-
-    action:"setPost",
-
-    applicationId:applicationId,
-
-    post:select.value,
-
-    ...admin
-
-  });
-
-
-  showResult(r);
-
-
-  if (r.success) {
-
-    loadApps();
-
-  }
+stateBox.style.display="block";
 
 }
 
 
 /*
-  APPROVE
+ MANDAL
 */
-async function approveApplication(applicationId) {
 
-  if (!confirm(
-    "APPROVE this application?"
-  )) return;
+if(
+role==="MANDAL" ||
+role==="DISTRICT"
+){
 
-
-  const r = await api({
-
-    action:"approve",
-
-    applicationId:applicationId,
-
-    ...admin
-
-  });
-
-
-  showResult(r);
-
-
-  if (r.success) {
-
-    loadApps();
-
-  }
+mandalBox.style.display="block";
 
 }
 
 
 /*
-  REJECT
+ DISTRICT
 */
-async function rejectApplication(applicationId) {
 
-  if (!confirm(
-    "REJECT this application?"
-  )) return;
+if(role==="DISTRICT"){
 
+districtBox.style.display="block";
 
-  const r = await api({
+}
 
-    action:"reject",
-
-    applicationId:applicationId,
-
-    ...admin
-
-  });
+}
 
 
-  showResult(r);
+
+/*
+ LOAD MANDALS
+*/
+
+function loadAdminMandals(){
+
+const state =
+document.getElementById("adminState")
+.value;
 
 
-  if (r.success) {
+const mandal =
+document.getElementById("adminMandal");
 
-    loadApps();
 
-  }
+mandal.innerHTML =
+"<option value=''>Select Mandal</option>";
+
+
+document
+.getElementById("adminDistrict")
+.innerHTML =
+"<option value=''>Select District</option>";
+
+
+document
+.getElementById("adminDistrict")
+.disabled=true;
+
+
+if(!state){
+
+mandal.disabled=true;
+
+return;
+
+}
+
+
+const mandals =
+[...
+new Set(
+
+locations
+
+.filter(x =>
+String(x.state || "") === state
+)
+
+.map(x =>
+String(x.mandal || "").trim()
+)
+
+.filter(Boolean)
+
+)
+]
+.sort();
+
+
+mandals.forEach(m => {
+
+const option =
+document.createElement("option");
+
+option.value=m;
+
+option.textContent=m;
+
+mandal.appendChild(option);
+
+});
+
+
+mandal.disabled=false;
+
+}
+
+
+
+/*
+ LOAD DISTRICTS
+*/
+
+function loadAdminDistricts(){
+
+const state =
+document.getElementById("adminState")
+.value;
+
+
+const mandal =
+document.getElementById("adminMandal")
+.value;
+
+
+const district =
+document.getElementById("adminDistrict");
+
+
+district.innerHTML =
+"<option value=''>Select District</option>";
+
+
+if(!state || !mandal){
+
+district.disabled=true;
+
+return;
+
+}
+
+
+const districts =
+[...
+new Set(
+
+locations
+
+.filter(x =>
+String(x.state || "") === state &&
+String(x.mandal || "") === mandal
+)
+
+.map(x =>
+String(x.district || "").trim()
+)
+
+.filter(Boolean)
+
+)
+]
+.sort();
+
+
+districts.forEach(d => {
+
+const option =
+document.createElement("option");
+
+option.value=d;
+
+option.textContent=d;
+
+district.appendChild(option);
+
+});
+
+
+district.disabled=false;
+
+}
+
+
+
+/*
+ =========================
+ CREATE ADMIN
+ =========================
+*/
+
+document
+.getElementById("createAdminForm")
+.onsubmit = async function(e){
+
+e.preventDefault();
+
+
+if(
+String(admin.role || "")
+.toUpperCase() !== "MAIN"
+){
+
+alert(
+"Only Main Admin can appoint Admin."
+);
+
+return;
+
+}
+
+
+const form =
+e.target;
+
+
+const newAdminId =
+String(
+form.newAdminId.value || ""
+).trim();
+
+
+const newPassword =
+String(
+form.newPassword.value || ""
+);
+
+
+const adminEmail =
+String(
+form.adminEmail.value || ""
+).trim();
+
+
+const role =
+String(
+form.role.value || ""
+).trim();
+
+
+const state =
+String(
+form.state.value || ""
+).trim();
+
+
+const mandal =
+String(
+form.mandal.value || ""
+).trim();
+
+
+const district =
+String(
+form.district.value || ""
+).trim();
+
+
+const msg =
+document.getElementById(
+"adminCreateMsg"
+);
+
+
+msg.className="msg";
+
+msg.style.display="block";
+
+msg.textContent=
+"Creating Admin...";
+
+
+if(!newAdminId ||
+!newPassword ||
+!adminEmail ||
+!role){
+
+msg.className="msg error";
+
+msg.textContent=
+"Required fields complete karo.";
+
+return;
+
+}
+
+
+if(
+(role==="STATE" ||
+role==="MANDAL" ||
+role==="DISTRICT")
+&& !state
+){
+
+msg.className="msg error";
+
+msg.textContent=
+"State select karo.";
+
+return;
+
+}
+
+
+if(
+(role==="MANDAL" ||
+role==="DISTRICT")
+&& !mandal
+){
+
+msg.className="msg error";
+
+msg.textContent=
+"Mandal select karo.";
+
+return;
+
+}
+
+
+if(
+role==="DISTRICT" &&
+!district
+){
+
+msg.className="msg error";
+
+msg.textContent=
+"District select karo.";
+
+return;
+
+}
+
+
+try{
+
+const r =
+await api({
+
+action:"createAdmin",
+
+adminId:
+admin.adminId,
+
+password:
+admin.password,
+
+newAdminId:
+newAdminId,
+
+newPassword:
+newPassword,
+
+adminEmail:
+adminEmail,
+
+role:
+role,
+
+state:
+state,
+
+mandal:
+mandal,
+
+district:
+district
+
+});
+
+
+msg.className =
+"msg " +
+(r.success
+? "success"
+: "error");
+
+
+msg.textContent =
+r.message ||
+(r.success
+? "Admin appointed successfully."
+: "Admin creation failed."
+);
+
+
+if(r.success){
+
+form.reset();
+
+adminRoleChanged();
+
+loadAdmins();
+
+}
+
+}catch(err){
+
+msg.className="msg error";
+
+msg.textContent =
+err.message ||
+"Connection error.";
+
+}
+
+};
+
+
+
+/*
+ =========================
+ LOAD ADMINS
+ =========================
+*/
+
+async function loadAdmins(){
+
+if(
+String(admin.role || "")
+.toUpperCase() !== "MAIN"
+)return;
+
+
+const tbody =
+document.getElementById(
+"adminRows"
+);
+
+
+tbody.innerHTML =
+"<tr><td colspan='8' style='text-align:center;padding:20px'>Loading...</td></tr>";
+
+
+try{
+
+const r =
+await api({
+
+action:"listAdmins",
+
+...admin
+
+});
+
+
+if(!r.success){
+
+tbody.innerHTML =
+"<tr><td colspan='8' style='text-align:center;padding:20px'>" +
+esc(r.message || "Unable to load admins.") +
+"</td></tr>";
+
+return;
+
+}
+
+
+const admins =
+r.admins || [];
+
+
+if(!admins.length){
+
+tbody.innerHTML =
+"<tr><td colspan='8' style='text-align:center;padding:20px'>" +
+"No Admins found." +
+"</td></tr>";
+
+return;
+
+}
+
+
+tbody.innerHTML="";
+
+
+admins.forEach(a => {
+
+const tr =
+document.createElement("tr");
+
+
+const status =
+String(
+a.status || ""
+).toUpperCase();
+
+
+let action="—";
+
+
+if(
+status==="ACTIVE" &&
+String(a.adminId || "") !==
+String(admin.adminId || "")
+){
+
+action =
+"<button class='btn red' " +
+"onclick=\"deactivateAdmin('" +
+esc(a.adminId) +
+"')\">" +
+"DEACTIVATE" +
+"</button>";
+
+}
+
+
+tr.innerHTML =
+
+"<td>" +
+esc(a.adminId) +
+"</td>" +
+
+"<td>" +
+esc(a.email || "") +
+"</td>" +
+
+"<td>" +
+esc(roleName(a.role)) +
+"</td>" +
+
+"<td>" +
+esc(a.state || "") +
+"</td>" +
+
+"<td>" +
+esc(a.mandal || "") +
+"</td>" +
+
+"<td>" +
+esc(a.district || "") +
+"</td>" +
+
+"<td>" +
+esc(status) +
+"</td>" +
+
+"<td>" +
+action +
+"</td>";
+
+
+tbody.appendChild(tr);
+
+});
+
+
+}catch(err){
+
+tbody.innerHTML =
+"<tr><td colspan='8' style='text-align:center;padding:20px'>" +
+esc(err.message || "Connection error.") +
+"</td></tr>";
+
+}
+
+}
+
+
+
+/*
+ =========================
+ DEACTIVATE ADMIN
+ =========================
+*/
+
+async function deactivateAdmin(adminId){
+
+if(
+String(admin.role || "")
+.toUpperCase() !== "MAIN"
+){
+
+alert(
+"Only Main Admin can deactivate Admin."
+);
+
+return;
+
+}
+
+
+if(
+!confirm(
+"Are you sure you want to deactivate Admin " +
+adminId +
+"?"
+)
+)return;
+
+
+try{
+
+const r =
+await api({
+
+action:"deactivateAdmin",
+
+adminId:
+admin.adminId,
+
+password:
+admin.password,
+
+targetAdminId:
+adminId
+
+});
+
+
+showResult(r);
+
+
+if(r.success){
+
+loadAdmins();
+
+}
+
+}catch(err){
+
+showResult({
+
+success:false,
+
+message:
+err.message ||
+"Connection error."
+
+});
+
+}
+
+}
+
+
+
+/*
+ =========================
+ LOAD APPLICATIONS
+ =========================
+*/
+
+async function loadApps(){
+
+const m =
+document.getElementById("panelMsg");
+
+
+m.style.display="none";
+
+
+try{
+
+const r =
+await api({
+
+action:"adminList",
+
+...admin
+
+});
+
+
+if(!r.success){
+
+m.className="msg error";
+
+m.textContent =
+r.message ||
+"Unable to load applications.";
+
+m.style.display="block";
+
+return;
 
 }
 
 
 /*
-  RESULT MESSAGE
+ UPDATE ADMIN INFORMATION
 */
-function showResult(r) {
 
-  const m =
-    document.getElementById("panelMsg");
+if(r.admin){
 
+admin={
 
-  m.className =
-    "msg " +
-    (r.success ? "success" : "error");
+...admin,
 
+...r.admin
 
-  m.textContent =
-    r.message ||
-    (r.success
-      ? "Done."
-      : "Action failed.");
+};
+
+showAdminInfo();
+
+}
 
 
-  m.style.display = "block";
+const rows =
+document.getElementById("rows");
+
+
+rows.innerHTML="";
+
+
+const applications =
+r.applications || [];
+
+
+if(!applications.length){
+
+rows.innerHTML =
+"<tr><td colspan='10' style='text-align:center;padding:20px'>" +
+"No applications found." +
+"</td></tr>";
+
+return;
+
+}
+
+
+applications.forEach(x => {
+
+const id =
+String(x.applicationId || "");
+
+
+const status =
+String(x.status || "")
+.toUpperCase();
+
+
+let postCell="—";
+
+let actionCell="—";
+
+
+/*
+ APPROVED
+*/
+
+if(status==="APPROVED"){
+
+postCell =
+
+"<select id='post_" +
+esc(id) +
+"' style='min-width:160px'>" +
+
+postOptions(
+x.post || "सदस्य"
+) +
+
+"</select>";
+
+
+actionCell =
+
+"<button class='btn red' " +
+"onclick=\"savePost('" +
+esc(id) +
+"')\">" +
+
+"SAVE POST" +
+
+"</button> " +
+
+"<button class='btn' " +
+"onclick=\"rejectApplication('" +
+esc(id) +
+"')\">" +
+
+"REJECT" +
+
+"</button>";
+
+}
+
+
+/*
+ PENDING
+*/
+
+else if(status==="PENDING"){
+
+actionCell =
+
+"<button class='btn red' " +
+"onclick=\"approveApplication('" +
+esc(id) +
+"')\">" +
+
+"APPROVE" +
+
+"</button> " +
+
+"<button class='btn' " +
+"onclick=\"rejectApplication('" +
+esc(id) +
+"')\">" +
+
+"REJECT" +
+
+"</button>";
+
+}
+
+
+/*
+ REJECTED
+*/
+
+else if(status==="REJECTED"){
+
+actionCell="REJECTED";
+
+}
+
+
+const tr =
+document.createElement("tr");
+
+
+tr.innerHTML =
+
+"<td>" +
+
+esc(id) +
+
+"<br><small>" +
+
+esc(x.memberId || "") +
+
+"</small>" +
+
+"</td>" +
+
+"<td>" +
+esc(x.name) +
+"</td>" +
+
+"<td>" +
+esc(x.mobile) +
+"</td>" +
+
+"<td>" +
+esc(x.state || "") +
+"</td>" +
+
+"<td>" +
+esc(x.mandal || "") +
+"</td>" +
+
+"<td>" +
+esc(x.district || "") +
+"</td>" +
+
+"<td>" +
+esc(x.assignedDistrictAdmin || "") +
+"</td>" +
+
+"<td>" +
+esc(status) +
+"</td>" +
+
+"<td>" +
+postCell +
+"</td>" +
+
+"<td>" +
+actionCell +
+"</td>";
+
+
+rows.appendChild(tr);
+
+});
+
+
+}catch(err){
+
+m.className="msg error";
+
+m.textContent =
+err.message ||
+"Connection error.";
+
+m.style.display="block";
+
+}
+
+}
+
+
+
+/*
+ =========================
+ SAVE POST
+ =========================
+*/
+
+async function savePost(applicationId){
+
+const select =
+document.getElementById(
+"post_" + applicationId
+);
+
+
+if(!select)return;
+
+
+const r =
+await api({
+
+action:"setPost",
+
+applicationId:
+applicationId,
+
+post:
+select.value,
+
+...admin
+
+});
+
+
+showResult(r);
+
+
+if(r.success){
+
+loadApps();
+
+}
+
+}
+
+
+
+/*
+ =========================
+ APPROVE
+ =========================
+*/
+
+async function approveApplication(applicationId){
+
+if(
+!confirm(
+"APPROVE this application?"
+)
+)return;
+
+
+const r =
+await api({
+
+action:"approve",
+
+applicationId:
+applicationId,
+
+...admin
+
+});
+
+
+showResult(r);
+
+
+if(r.success){
+
+loadApps();
+
+}
+
+}
+
+
+
+/*
+ =========================
+ REJECT
+ =========================
+*/
+
+async function rejectApplication(applicationId){
+
+if(
+!confirm(
+"REJECT this application?"
+)
+)return;
+
+
+const r =
+await api({
+
+action:"reject",
+
+applicationId:
+applicationId,
+
+...admin
+
+});
+
+
+showResult(r);
+
+
+if(r.success){
+
+loadApps();
+
+}
+
+}
+
+
+
+/*
+ =========================
+ RESULT MESSAGE
+ =========================
+*/
+
+function showResult(r){
+
+const m =
+document.getElementById(
+"panelMsg"
+);
+
+
+m.className =
+"msg " +
+(r.success
+? "success"
+: "error");
+
+
+m.textContent =
+r.message ||
+(r.success
+? "Done."
+: "Action failed."
+);
+
+
+m.style.display="block";
 
 }
 
