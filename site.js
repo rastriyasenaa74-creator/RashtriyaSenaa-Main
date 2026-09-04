@@ -20,7 +20,7 @@ h.innerHTML=
 '<span>भारत के लिए • समाज के लिए</span>'+
 '</div></div>'+
 '<div class="navbar"><div class="container nav">'+
-'<a class="brand" href="index.html">RashtriyaSenaa<span>मानव जन कल्याण समिति</span></a>'+
+'<a class="brand" href="index.html">RastriyaSenaa<span>मानव जन कल्याण समिति</span></a>'+
 '<button class="menu" id="menu">☰</button>'+
 '<nav class="navlinks" id="navlinks">'+
 items.map(x=>'<a class="'+(cur===x[0]?"active":"")+'" href="'+x[0]+'">'+x[1]+'</a>').join("")+
@@ -38,7 +38,7 @@ const f=document.querySelector("footer");
 if(f)
 f.innerHTML=
 '<div class="footer"><div class="container footgrid">'+
-'<div><div class="brand" style="color:#fff">RashtriyaSenaa<span style="color:#999">मानव जन कल्याण समिति</span></div>'+
+'<div><div class="brand" style="color:#fff">RastriyaSenaa<span style="color:#999">मानव जन कल्याण समिति</span></div>'+
 '<p>न्याय • समानता • संविधान</p></div>'+
 '<div><h3>QUICK LINKS</h3>'+
 items.slice(1).map(x=>'<a href="'+x[0]+'">'+x[1]+'</a>').join("")+
@@ -49,7 +49,7 @@ items.slice(1).map(x=>'<a href="'+x[0]+'">'+x[1]+'</a>').join("")+
 '<a href="login.html">Member Login</a>'+
 '<a href="admin.html">Admin Panel</a>'+
 '</div></div>'+
-'<div class="container copy">© 2026 RashtriyaSenaa. All Rights Reserved.</div></div>';
+'<div class="container copy">© 2026 RastriyaSenaa. All Rights Reserved.</div></div>';
 
 async function api(d){
 const r=await fetch(API_URL,{
